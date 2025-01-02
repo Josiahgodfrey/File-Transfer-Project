@@ -15,3 +15,17 @@ void print_usage() {
     cout << "usage: ./server <port>" << endl;
 }
 
+int main(int argc, char *argv[]) {
+    int port = 8510;    //default port
+
+    if(argc == 2) {
+        port = stoi(argv[1]);
+    }
+
+    if(argc != 2) {
+        print_usage();
+        return 1;
+    }
+
+    return 0;
+}
