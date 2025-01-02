@@ -57,5 +57,14 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
+    //Start listening for connections
+    if (listen(server_fd, 3) < 0) {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+
+    cout << "Server started on port " << port << endl;
+
+
     return 0;
 }
