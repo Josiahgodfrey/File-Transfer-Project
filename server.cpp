@@ -46,5 +46,16 @@ int main(int argc, char *argv[]) {
         perror("setsockopt");
         exit(EXIT_FAILURE);
     }
+
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(port);
+
+    //binding the socket to the port
+    if(bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+
     return 0;
 }
