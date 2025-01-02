@@ -10,3 +10,7 @@
 #include <openssl/sha.h> // For file integrity check
 using namespace std;
 namespace fs = filesystem;
+
+#define PORT 8511
+#define BUFFER_SIZE 1024
+#define MAX_FILE_SIZE 10000000 // Maximum file size limit (10 MB)
