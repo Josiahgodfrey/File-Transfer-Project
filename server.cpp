@@ -7,3 +7,11 @@
 #include <filesystem>
 using namespace std;
 namespace fs = filesystem;
+
+#define PORT 8510
+#define BUFFER_SIZE 1024
+
+void print_usage() {
+    cout << "usage: ./server <port>" << endl;
+}
+
