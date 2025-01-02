@@ -78,6 +78,36 @@ int main() {
         // Send the file size to the server
         send(sock, &file_size, sizeof(file_size), 0);
 
+        // Calculate file checksum (SHA-256)
+        unsigned char checksum[SHA256_DIGEST_LENGTH];
+        SHA256_CTX sha256;
+        SHA256_Init(&sha256);
+        while (infile) {
+            infile.read(buffer, BUFFER_SIZE);
+            SHA256_Update(&sha256, buffer, infile.gcount());
+        }
+        SHA256_Final(checksum, &sha256);
+
+        // Send the file checksum to the server
+        send(sock, checksum, SHA256_DIGEST_LENGTH, 0);
+        // creating a directory for storing sent files
+        fs::path dir_path("/home/josiah/Documents/C++ DEV/FILE-TRANSFER/sent_files");
+        if (!fs::exists(dir_path)) {
+            fs::create_directories(dir_path);
+        }
+
+        string file_name = "sent_file_" + to_string(time(nullptr));
+
+        // Send the file data
+        while (infile) {
+            infile.read(buffer, BUFFER_SIZE);
+            send(sock, buffer, infile.gcount(), 0);
+        }
+
+        cout << "File sent successfully" << endl;
+
+        // Cleanup
+        infile.close();
     }
 
     close(sock);
