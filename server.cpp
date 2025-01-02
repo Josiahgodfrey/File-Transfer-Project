@@ -94,6 +94,18 @@ int main(int argc, char *argv[]) {
         outfile.write(buffer, bytes_received);
         total_bytes_received += bytes_received;
 
+        //Display progress message
+        cout << "\rProgress: " << (double)total_bytes_received / file_size * 100.0 << "%";
+        cout.flush();
+    }
+
+    cout << endl;
+    cout << "File received successfully. You will find the received file in: " << file_path << endl;
+
+    //cleanup code
+    outfile.close();
+    close(new_socket);
+    close(server_fd);
 
     return 0;
 }
