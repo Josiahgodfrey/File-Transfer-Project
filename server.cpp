@@ -65,6 +65,17 @@ int main(int argc, char *argv[]) {
 
     cout << "Server started on port " << port << endl;
 
+    //Accepting connection
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addressLen)) < 0) {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+
+    //Creating a directory to store received files
+    fs::path dir_path("/home/josiah/Documents/C++ DEV/FILE-TRANSFER/received_files");
+    if(!fs::exists(dir_path)) {
+        fs::create_directories(dir_path);
+    }
 
     return 0;
 }
