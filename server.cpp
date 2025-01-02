@@ -35,6 +35,16 @@ int main(int argc, char *argv[]) {
     int addressLen = sizeof(address);
     char buffer[BUFFER_SIZE] = {0};
 
+    //creating socket file descriptor
+    if((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+        perror("socket failed");
+        exit(EXIT_FAILURE);
+    }
 
+    // attaching socket to the port
+    if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
     return 0;
 }
