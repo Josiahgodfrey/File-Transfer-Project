@@ -77,5 +77,23 @@ int main(int argc, char *argv[]) {
         fs::create_directories(dir_path);
     }
 
+    //Receiving a file
+    int bytes_received;
+    int total_bytes_received = 0;
+    int file_size = 0;
+
+    //Receive the file size first
+    recv(new_socket, &file_size, sizeof(file_size), 0);
+
+    string file_name = "received_file_" + to_string(time(0));
+    fs::path file_path = dir_path / (file_name + ".txt");
+
+    ofstream outfile(file_path, ios::binary);
+    while (total_bytes_received < file_size) {
+        bytes_received = recv(new_socket, buffer, BUFFER_SIZE, 0);
+        outfile.write(buffer, bytes_received);
+        total_bytes_received += bytes_received;
+
+
     return 0;
 }
