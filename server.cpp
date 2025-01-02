@@ -27,5 +27,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    port = stoi(argv[1]);
+
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    int opt = 11;
+    int addressLen = sizeof(address);
+    char buffer[BUFFER_SIZE] = {0};
+
+
     return 0;
 }
