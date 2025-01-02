@@ -41,5 +41,19 @@ int main() {
         return -1;
     }
 
+    // Loop to allow user to select multiple files
+    while (true) {
+        string file_path;
+        cout << "Enter the file path or 'exit' to quit: ";
+        cin >> file_path;
+
+        if (file_path == "exit") {
+            break;
+        }
+
+    }
+
+    close(sock);
+
     return 0;
 }
