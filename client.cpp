@@ -51,6 +51,20 @@ int main() {
             break;
         }
 
+        // Validate and sanitize file path
+        fs::path path(file_path);
+        if (!fs::exists(path) || !fs::is_regular_file(path)) {
+            cerr << "Invalid file path" << endl;
+            continue;
+        }
+
+        // Check if the file exists and is readable
+        std::ifstream infile(file_path, std::ios::binary);
+        if (!infile.is_open()) {
+            cerr << "Error opening file: " << strerror(errno) << endl;
+            continue;
+        }
+
     }
 
     close(sock);
