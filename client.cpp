@@ -65,6 +65,19 @@ int main() {
             continue;
         }
 
+        // Check file size limit
+        infile.seekg(0, ios::end);
+        size_t file_size = infile.tellg();
+        infile.seekg(0, ios::beg);
+        if (file_size > MAX_FILE_SIZE) {
+            cerr << "File size exceeds maximum limit" << endl;
+            infile.close();
+            continue;
+        }
+
+        // Send the file size to the server
+        send(sock, &file_size, sizeof(file_size), 0);
+
     }
 
     close(sock);
